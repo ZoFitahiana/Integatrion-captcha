@@ -1,7 +1,7 @@
-import Home from "@/app/component/Home ";
+import Recaptcha from "../component/Recaptcha"
 
 export default function CaptchaPage() {
     return <div>
-                <Home />
-           </div>
+        <Recaptcha />
+    </div>
 }

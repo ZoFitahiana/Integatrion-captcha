@@ -1,22 +1,9 @@
-"use client"
-import { useEffect } from 'react';
+import Home from "@/app/component/Home";
 
-const Recaptcha = () => {
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://www.google.com/recaptcha/api.js';
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
+export default function CaptchaPage() {
   return (
-    <div className="g-recaptcha"  data-sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}></div>
+    <div>
+      <Home />
+    </div>
   );
-};
-
-export default Recaptcha;
+}
