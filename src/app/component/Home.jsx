@@ -32,9 +32,12 @@ const Home = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="login-form" onSubmit={handleSubmit}>
             <Recaptcha />
             <div className="g-recaptcha" data-sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}></div>
+            <h2>Connexion</h2>
+            <input type="text" placeholder="Nom d'utilisateur" required />
+            <input type="password" placeholder="Mot de passe" required />
             <button type="submit">Soumettre</button>
         </form>
     );
