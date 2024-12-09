@@ -1,19 +1,45 @@
-import { useEffect } from 'react';
+"use client"
 
-const Recaptcha = () => {
-    useEffect(() => {
-        const script = document.createElement('script');
-        script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
-        script.async = true;
-        script.defer = true;
-        document.body.appendChild(script);
+import Recaptcha from "./Recaptcha";
 
-        return () => {
-            document.body.removeChild(script);
-        };
-    }, []);
+const Home = () => {
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-    return null;
+        if (window.grecaptcha) {
+            window.grecaptcha.ready(() => {
+                window.grecaptcha.execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY, { action: 'submit' }).then((token) => {
+                    fetch('/api/verify-recaptcha', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ recaptchaToken: token }),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            if (data.success) {
+                                console.log('reCAPTCHA vérifié avec succès');
+                            } else {
+                                console.log('Échec de la vérification reCAPTCHA');
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Erreur lors de la vérification reCAPTCHA:', error);
+                        });
+                });
+            });
+        } else {
+            console.error('grecaptcha object is not available');
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <Recaptcha />
+            <button type="submit">Soumettre</button>
+        </form>
+    );
 };
 
-export default Recaptcha;
+export default Home;
