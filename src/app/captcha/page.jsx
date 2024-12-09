@@ -1,7 +1,9 @@
-import Recaptcha from "../component/Recaptcha"
+import Home from "@/components/Home";
 
 export default function CaptchaPage() {
-    return <div>
-        <Recaptcha />
+  return (
+    <div>
+      <Home />
     </div>
+  );
 }
