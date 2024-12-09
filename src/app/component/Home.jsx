@@ -1,5 +1,4 @@
 "use client";
-//test 
 import Recaptcha from "./Recaptcha";
 
 const Home = () => {
